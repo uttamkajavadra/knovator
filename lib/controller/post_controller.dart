@@ -74,12 +74,11 @@ class PostController extends GetxController {
     postResponse[index].markAsRead = 1;
   }
 
-  Rx<PostModel> postDetailResponse = PostModel().obs;
-  Future<void> getPostDetailData(String id) async {
+  Future<PostModel> getPostDetailData(String id) async {
     try {
       final response = await ApiManager.instance.get("${Endpoints.post}/$id");
       var data = jsonDecode(response.body);
-      postDetailResponse.value = PostModel.fromJson(data);
+      return PostModel.fromJson(data);
     } catch (e) {
       throw Exception("Error $e");
     }
